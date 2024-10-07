@@ -1,0 +1,121 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	user-select: none;
+}
+
+html {
+	overflow-x: hidden;
+	scroll-behavior: smooth;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+
+	background: center/cover no-repeat
+		var(--cover-url, var(--cover-primary-color, #121212));
+}
+
+.player {
+	position: relative;
+	width: auto;
+	height: 360px;
+	aspect-ratio: 16/9;
+	overflow: hidden;
+	border-radius: 1.4rem;
+	/* background-color: var(--cover-primary-color, #0a0a0a); */
+	padding: 1%;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	border: 2px solid hsl(0 0 100 / 0.05);
+	box-shadow: 0 0 12px 0 hsl(0 0 0 / 0.6);
+}
+
+.player > div {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.player > div:first-of-type {
+	position: absolute;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	column-gap: 4px;
+	color: #fff;
+	font-family: 'Nunito Sans', sans-serif;
+	font-size: 14px;
+	z-index: 1;
+	padding: 8px 12px 12px 0;
+	border-bottom-right-radius: 1.2rem;
+	background-color: var(--cover-primary-color);
+}
+
+#spotify_mark {
+	aspect-ratio: 1/1;
+	width: 28px;
+}
+
+#cover {
+	aspect-ratio: 1/1;
+	height: 100%;
+	width: auto;
+	object-fit: cover;
+	object-position: center;
+	border-radius: 1rem;
+}
+
+#track-data {
+	position: relative;
+	height: 100%;
+}
+
+#mid-section {
+	position: relative;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#low-section {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+#low-section > div {
+	position: relative;
+	width: 80%;
+	display: flex;
+	align-items: center;
+	/* background: red; */
+}
+
+#low-section > span {
+	display: block;
+}
+
+#low-section > span:first-of-type {
+	height: 5px;
+	width: 100%;
+	background-color: #fff;
+	opacity: 0.35;
+	mix-blend-mode: difference;
+}
+
+#low-section > span:last-of-type {
+	position: absolute;
+	width: 10px;
+	margin-left: calc(var(--progress) - 5px);
+	aspect-ratio: 1/1;
+	background-color: var(--some-other, #fff);
+	border-radius: 50%;
+}

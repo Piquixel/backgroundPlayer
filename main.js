@@ -45,7 +45,7 @@ const getSpotifyActivity = async () => {
 		document
 			.querySelector(':root')
 			.style.setProperty(
-				'--picked-color',
+				'--cover-primary-color',
 				`rgb(${colorThief.getPalette(img)[0].join(',')})`
 			);
 
@@ -61,7 +61,7 @@ const getSpotifyActivity = async () => {
 	img.src = spotify.album_art_url;
 
 	document.querySelector('#cover').src = spotify.album_art_url;
-	document.querySelector('#background').src = spotify.album_art_url;
+	// document.querySelector('#background').src = spotify.album_art_url;
 
 	song.textContent = spotify.song;
 	artist.textContent = spotify.artist;

@@ -15,47 +15,39 @@
 			rel="stylesheet"
 		/>
 		<title>Background Player</title>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link rel="stylesheet" type="text/css" href="main.css" />
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.4.0/color-thief.min.js"
 			integrity="sha512-r2yd2GP87iHAsf2K+ARvu01VtR7Bs04la0geDLbFlB/38AruUbA5qfmtXwXx6FZBQGJRogiPtEqtfk/fnQfaYA=="
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		></script>
-		<script defer src="index.js"></script>
+		<script defer src="main.js"></script>
 	</head>
 	<body>
 		<div class="player">
-			<img src="" alt="" id="background" />
 			<div id="player-infos">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="1 1 22 22"
-					id="icon"
-				>
-					<path
-						d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm5.045 15.866a.686.686 0 0 1-.943.228c-2.583-1.579-5.834-1.935-9.663-1.06a.686.686 0 0 1-.306-1.337c4.19-.958 7.785-.546 10.684 1.226a.686.686 0 0 1 .228.943zm1.346-2.995a.858.858 0 0 1-1.18.282c-2.956-1.817-7.464-2.344-10.961-1.282a.856.856 0 0 1-1.11-.904.858.858 0 0 1 .611-.737c3.996-1.212 8.962-.625 12.357 1.462a.857.857 0 0 1 .283 1.179zm.116-3.119c-3.546-2.106-9.395-2.3-12.78-1.272a1.029 1.029 0 0 1-.597-1.969c3.886-1.18 10.345-.952 14.427 1.471a1.029 1.029 0 0 1-1.05 1.77z"
+				<svg id="spotify_mark">
+					<image
+						xlink:href="img/spotify.svg"
+						width="28"
+						height="28"
 					/>
 				</svg>
-				<p>Spotify</p>
 			</div>
-			<div id="mid-section">
+			<div id="track-data">
 				<img src="" id="cover" alt="" crossorigin="anonymous" />
 				<div>
-					<p id="song"></p>
-					<p id="artist"></p>
-					<p id="album"></p>
+					<article>
+						<p id="song"></p>
+						<p id="artist"></p>
+						<p id="album"></p>
+					</article>
+					<div id="progress-bar">
+						<span></span>
+						<span></span>
+					</div>
 				</div>
-				<button class="material-icons-outlined">pause</button>
-			</div>
-			<div id="low-section">
-				<button class="material-icons-outlined">skip_previous</button>
-				<div>
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-				<button class="material-icons-outlined">skip_next</button>
 			</div>
 		</div>
 	</body>
