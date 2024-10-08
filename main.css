@@ -1,9 +1,9 @@
-@keyframes a {
-	from {
-		transform: rotate(0deg);
+@keyframes rotateBg {
+	0% {
+		transform: rotate(var(--random-degree, 120deg));
 	}
 	to {
-		transform: rotate(359deg);
+		transform: rotate(calc(var(--random-degree, 120deg) + 1turn));
 	}
 }
 
@@ -28,54 +28,67 @@ body {
 	background-color: var(--cover-primary-color);
 }
 
-#fancy-background {
-	position: fixed;
-	width: 100%;
+#fancy-background #background_container {
+	filter: saturate(var(--saturation)) brightness(var(--brightness));
 	height: 100%;
-	top: 0;
 	left: 0;
-	filter: saturate(2) brightness(0.7);
+	overflow: hidden;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: -1;
+	opacity: var(--opacity, 1);
 }
 
-#fancy-background > img {
-	animation: a 35s linear infinite;
-	border-radius: 50%;
-	filter: blur(100px);
+#background_container > .blurImage {
+	pointer-events: none;
+	background-image: var(--cover-url);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	transition: all var(--fade-time, 1s) ease;
+	animation: rotateBg var(--time, 40s) linear infinite;
+	border-radius: 18vw;
+	filter: blur(var(--blur)) saturate(var(--saturation))
+		brightness(var(--brightness)) contrast(var(--contrast));
 	position: absolute;
-	width: 1200px;
-	opacity: 0.85;
+	aspect-ratio: 1/1;
+	width: 90%;
+	opacity: var(--opacity, 1);
 }
 
 #front {
+	animation-direction: reverse;
 	right: 0;
-	top: 0;
-	z-index: 2;
-	mix-blend-mode: luminosity;
+	top: 25%;
 }
 
 #back {
-	animation-direction: reverse;
-	bottom: 0;
-	left: 0;
-	z-index: 1;
+	bottom: 35%;
+	left: 5%;
 }
 
-#back_center {
-	animation-direction: reverse;
-	right: -50%;
-	top: -20px;
-	width: 1600px;
-	z-index: 0;
+#back_right {
+	right: -5%;
+	top: -20%;
+	width: 75%;
+}
+
+#back_left {
+	left: -35%;
+	top: -20%;
+	width: 75%;
 }
 
 .player {
 	position: relative;
 	width: auto;
 	height: 360px;
-	aspect-ratio: 16/9;
+	/* aspect-ratio: 16/9; */
 	overflow: hidden;
 	border-radius: 1.4rem;
-	background-color: var(--some-other, #0a0a0a);
+	background-color: var(--cover-primary-color, #0a0a0a);
 	padding: 1%;
 	border: 2px solid hsl(0 0 100 / 0.05);
 	/* box-shadow: 0 0 16px 0 hsl(0 0 0 / 0.4); */
@@ -91,9 +104,13 @@ body {
 	margin: 0.5rem;
 	z-index: 1;
 	filter: drop-shadow(0 0 4px hsl(0 0 0 / 0.4));
-	mix-blend-mode: difference;
+	/* mix-blend-mode: difference; */
 	aspect-ratio: 1/1;
 	width: 28px;
+}
+
+#spotify_mark path {
+	fill: var(--cover-primary-color, #fff);
 }
 
 #cover {
@@ -115,16 +132,28 @@ body {
 	height: 100%;
 }
 
+#track-data > div {
+	position: relative;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	row-gap: 1rem;
+	aspect-ratio: 1/1;
+	height: 100%;
+}
+
 article {
 	position: relative;
-	width: 100%;
+	max-width: 100%;
+	mask-image: linear-gradient(to right, #fff 80%, transparent 95%);
 }
 
 article > p {
 	position: relative;
 	line-height: 1.2;
-	color: var(--cover-primary-color);
+	color: var(--some-other);
 	font-family: 'Poppins';
+	white-space: nowrap;
 }
 
 #song {
@@ -140,4 +169,30 @@ article > p {
 #album {
 	font-size: 1.1rem;
 	margin-top: 5px;
+}
+
+#progress-bar {
+	position: relative;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+#progress-bar > span {
+	display: block;
+	height: 4px;
+}
+
+#progress-bar *:first-child {
+	background-color: black;
+	width: 100%;
+	mix-blend-mode: darken;
+}
+
+#progress-bar *:last-child {
+	position: absolute;
+	background-color: var(--some-other);
+	top: 0;
+	left: 0;
+	width: 100%;
+	transform-origin: left center;
 }

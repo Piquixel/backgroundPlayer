@@ -1,3 +1,12 @@
+window.onload = () => {
+	document
+		.querySelector(':root')
+		.style.setProperty(
+			'--random-degree',
+			Math.round(Math.random() * 360) + 'deg'
+		);
+};
+
 const colorThief = new ColorThief();
 const img = new Image();
 
@@ -20,28 +29,43 @@ const fetchResponse = async (userId) => {
 	}
 };
 
-// let currentTrack, percent;
+let currentTrack, percent;
 
 const getSpotifyActivity = async () => {
 	const {
 		data: { listening_to_spotify, spotify },
 	} = await fetchResponse(USER_ID);
 
-	if (!listening_to_spotify) return;
+	if (!listening_to_spotify | (currentTrack === spotify.track_id)) return;
+	currentTrack = spotify.track_id;
 
-	// const values = new Date(Date.now() - spotify.timestamps.start);
-	// const components = values.getMinutes() * 60 + values.getSeconds();
-	// const totalBase = new Date(
-	// 	spotify.timestamps.end - spotify.timestamps.start
-	// );
-	// const total = totalBase.getMinutes() * 60 + totalBase.getSeconds();
-	// percent = Math.ceil((components / total) * 100);
+	const values = new Date(Date.now() - spotify.timestamps.start);
+	const components = values.getMinutes() * 60 + values.getSeconds();
+	const totalBase = new Date(
+		spotify.timestamps.end - spotify.timestamps.start
+	);
+	const total = totalBase.getMinutes() * 60 + totalBase.getSeconds();
+	percent = Math.ceil((components / total) * 100);
 
-	// document
-	// 	.querySelector(':root')
-	// 	.style.setProperty('--progress', percent + '%');
+	document
+		.querySelector(':root')
+		.style.setProperty('--progress', total - components + 's');
 
-	// if (currentTrack === spotify.track_id) return;
+	document
+		.querySelector(':root')
+		.style.setProperty('--percent', percent + '%');
+
+	document.querySelector('#progress-bar span:last-child').animate(
+		{
+			transform: [`scaleX(${percent}%)`, 'scaleX(100%)'],
+		},
+		{
+			fill: 'forwards',
+			easing: 'linear',
+			duration: (total - components) * 1000,
+			iterations: 1,
+		}
+	);
 
 	img.addEventListener('load', () => {
 		document
@@ -58,6 +82,13 @@ const getSpotifyActivity = async () => {
 				.map((c) => 255 - c)
 				.join(', ')})`
 		);
+
+		document
+			.querySelector(':root')
+			.style.setProperty(
+				'--cover-url',
+				`url('${spotify.album_art_url}')`
+			);
 	});
 
 	img.crossOrigin = 'Anonymous';
@@ -65,15 +96,15 @@ const getSpotifyActivity = async () => {
 
 	document.querySelector('#cover').src = spotify.album_art_url;
 
-	for (const image of blurs) {
-		image.src = spotify.album_art_url;
-	}
+	// for (const image of blurs) {
+	// 	image.src = spotify.album_art_url;
+	// }
 
 	song.textContent = spotify.song;
 	artist.textContent = spotify.artist;
 	album.textContent = spotify.album;
-
-	getSpotifyActivity();
 };
 
 getSpotifyActivity();
+
+setInterval(getSpotifyActivity, 5000);
