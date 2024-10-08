@@ -188,6 +188,16 @@ article > p {
 	mix-blend-mode: darken;
 }
 
+#progress-bar *:nth-child(2) {
+	position: absolute;
+	aspect-ratio: 1/1;
+	background-color: var(--some-other);
+	top: 0;
+	left: -2px;
+	transform: translateX(-50%);
+	border-radius: 50%;
+}
+
 #progress-bar *:last-child {
 	position: absolute;
 	background-color: var(--some-other);
@@ -195,4 +205,15 @@ article > p {
 	left: 0;
 	width: 100%;
 	transform-origin: left center;
+}
+
+.moreColors {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.moreColors > span {
+	display: block;
+	aspect-ratio: 1/1;
+	width: 32px;
 }

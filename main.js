@@ -7,6 +7,8 @@ window.onload = () => {
 		);
 };
 
+const moreColors = document.querySelector('.moreColors');
+
 const colorThief = new ColorThief();
 const img = new Image();
 
@@ -67,7 +69,29 @@ const getSpotifyActivity = async () => {
 		}
 	);
 
+	document.querySelector('#progress-bar span:nth-child(2)').animate(
+		{
+			marginLeft: [percent + '%', '100%'],
+		},
+		{
+			fill: 'forwards',
+			easing: 'linear',
+			duration: (total - components) * 1000,
+			iterations: 1,
+		}
+	);
+
 	img.addEventListener('load', () => {
+		for (const color of colorThief.getPalette(img, 2)) {
+			const span = document.createElement('span');
+			span.style.backgroundColor = `rgb(${color.join(',')})`;
+			moreColors.append(span);
+		}
+
+		for (let i = 0; i < 560; i += 10) {
+			console.log(colorThief.getColor(img, i));
+		}
+
 		document
 			.querySelector(':root')
 			.style.setProperty(
