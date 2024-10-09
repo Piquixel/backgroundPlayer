@@ -217,3 +217,27 @@ article > p {
 	aspect-ratio: 1/1;
 	width: 32px;
 }
+
+.palettes {
+	position: absolute;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: auto;
+	gap: 0.2rem;
+	left: 0;
+	padding: 6px;
+	background-color: red;
+}
+
+.palettes#more-colors {
+	right: 0;
+	left: unset;
+	justify-items: end;
+}
+
+.palettes > span {
+	display: block;
+	aspect-ratio: 1/1;
+	width: 32px;
+	background-color: #fff;
+}

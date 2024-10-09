@@ -7,7 +7,8 @@ window.onload = () => {
 		);
 };
 
-const moreColors = document.querySelector('.moreColors');
+const palette = document.querySelectorAll('#alternates > span');
+const moreColors = document.querySelectorAll('#more-colors > span');
 
 const colorThief = new ColorThief();
 const img = new Image();
@@ -82,14 +83,21 @@ const getSpotifyActivity = async () => {
 	);
 
 	img.addEventListener('load', () => {
-		for (const color of colorThief.getPalette(img, 2)) {
-			const span = document.createElement('span');
-			span.style.backgroundColor = `rgb(${color.join(',')})`;
-			moreColors.append(span);
+		for (const span of palette) {
+			span.style.backgroundColor = `rgb(${colorThief
+				.getColor(img, Array.prototype.indexOf.call(palette, span) * 10)
+				.join(',')})`;
 		}
 
-		for (let i = 0; i < 560; i += 10) {
-			console.log(colorThief.getColor(img, i));
+		for (const span of moreColors) {
+			if (
+				colorThief.getPalette(img, 56, 0).length ===
+				Array.prototype.indexOf.call(moreColors, span)
+			)
+				break;
+			span.style.backgroundColor = `rgb(${colorThief
+				.getPalette(img, 56, 0)
+				[Array.prototype.indexOf.call(moreColors, span)].join(',')})`;
 		}
 
 		document
@@ -119,10 +127,6 @@ const getSpotifyActivity = async () => {
 	img.src = spotify.album_art_url;
 
 	document.querySelector('#cover').src = spotify.album_art_url;
-
-	// for (const image of blurs) {
-	// 	image.src = spotify.album_art_url;
-	// }
 
 	song.textContent = spotify.song;
 	artist.textContent = spotify.artist;
